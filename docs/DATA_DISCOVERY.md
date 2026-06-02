@@ -1,44 +1,84 @@
 # DATA DISCOVERY
 
-Este documento registra toda nova estatística, campo, endpoint ou métrica descoberta durante o projeto.
+Este documento registra todas as descobertas realizadas durante o projeto.
 
-## Regras
+Objetivos:
 
 1. Nenhuma descoberta deve ser perdida.
-2. Descobertas não precisam ser implementadas imediatamente.
-3. Ao final de cada entrega, novos campos encontrados devem ser registrados aqui.
-4. A decisão de coletar ou não será tomada posteriormente.
+2. Separar descobertas técnicas de descobertas estatísticas.
+3. Registrar hipóteses, evidências e limitações.
+4. Permitir que novos membros entendam rapidamente o estado do projeto.
 
 ---
 
-## Descobertas Atuais
+# FotMob Technical Discoveries
 
-# FotMob Discovery Notes – June 2026
+## Working League Endpoint
 
-## Working Endpoint
-
-Confirmed working:
+Endpoint validado:
 
 https://www.fotmob.com/api/data/leagues?id=47&season=2024/2025
 
-### Available Data
+Status:
 
-fixtures.allMatches includes:
+CONFIRMADO
 
-* id
-* home team
-* away team
-* match status
-* match date
-* pageUrl
+---
 
-The id field corresponds to FotMob Match ID.
+### Dados Disponíveis
+
+Estrutura observada:
+
+```json
+fixtures
+allMatches
+table
+overview
+stats
+seasons
+```
+
+Dentro de:
+
+```json
+fixtures.allMatches
+```
+
+foram identificados:
+
+```json
+id
+home
+away
+status
+utcTime
+pageUrl
+round
+```
+
+---
+
+### FotMob Match ID
+
+Campo:
+
+```json
+id
+```
+
+corresponde ao:
+
+```text
+fotmob_match_id
+```
+
+Utilizado para relacionar partidas com dados detalhados do FotMob.
 
 ---
 
 ## Premier League Validation
 
-League:
+Liga:
 
 Premier League
 
@@ -46,215 +86,561 @@ League ID:
 
 47
 
-Season:
+Temporada:
 
 2024/2025
 
-Matches discovered:
+Resultado:
 
-380
-
-Matches mapped:
-
-369
-
-Unmapped:
-
-11
-
----
-
-## MatchDetails Investigation
-
-Endpoint:
-
-https://www.fotmob.com/api/data/matchDetails?matchId=XXXX
-
-### Direct Requests
-
-Result:
-
-403
-
-Response:
-
-TURNSTILE_REQUIRED
-
----
-
-### Playwright Interception
+```text
+Partidas descobertas: 380
+Partidas mapeadas: 369
+Não mapeadas: 11
+```
 
 Status:
 
-Partial Success
-
-Observed:
-
-* request URL detected
-* endpoint confirmed
-* response blocked
+CONCLUÍDO
 
 ---
 
-### Historical Evidence
+## Understat → FotMob Match Mapping
 
-File:
+Problema:
 
+Relacionar partidas do Understat com partidas do FotMob.
+
+Resultado:
+
+```text
+369 partidas associadas com sucesso.
+```
+
+Exemplos:
+
+```text
+Manchester United x Fulham
+→ 4506263
+
+Ipswich x Liverpool
+→ 4506264
+
+Arsenal x Wolverhampton Wanderers
+→ 4506265
+```
+
+Status:
+
+CONCLUÍDO
+
+---
+
+# MatchDetails Investigation
+
+## Endpoint
+
+Endpoint identificado:
+
+https://www.fotmob.com/api/data/matchDetails?matchId=XXXX
+
+---
+
+## Objetivo
+
+Coletar:
+
+```text
+momentum
+events
+playerStats
+attackingZones
+shotmap
+matchFacts
+expectedGoals
+```
+
+---
+
+## Resultado Atual
+
+Requests:
+
+```python
+requests.get(...)
+```
+
+Retorno:
+
+```json
+{
+  "error": "Verification required",
+  "code": "TURNSTILE_REQUIRED"
+}
+```
+
+Status HTTP:
+
+```text
+403
+```
+
+---
+
+## Playwright Investigation
+
+Método:
+
+```text
+Abrir página
+↓
+Interceptar respostas
+↓
+Capturar matchDetails
+```
+
+Resultado:
+
+```text
+URL detectada
+Payload bloqueado
+```
+
+Status:
+
+PARCIAL
+
+---
+
+## Header x-mas
+
+Obtido via:
+
+```text
+Copy as cURL
+```
+
+Resultado:
+
+```text
+403
+```
+
+Conclusão:
+
+Header isolado não resolve o bloqueio.
+
+---
+
+## DevTools Investigation
+
+Resultado observado:
+
+```text
+200 OK (from disk cache)
+```
+
+Hipótese:
+
+O navegador estava exibindo uma resposta armazenada localmente.
+
+Status:
+
+PROVÁVEL
+
+---
+
+# Historical Evidence
+
+## matchdetails.json
+
+Arquivo encontrado:
+
+```text
 matchdetails.json
+```
 
-Contains:
+Contém:
 
-* momentum
-* expectedGoals
-* expectedGoalsOnTarget
-* playerStats
-* attackingZones
-* events
-* matchFacts
+```text
+momentum
+events
+expectedGoals
+expectedGoalsOnTarget
+playerStats
+attackingZones
+matchFacts
+shotmap
+```
 
-Conclusion:
+Conclusão:
 
-MatchDetails payload was successfully captured at least once in the past.
+O payload do MatchDetails foi capturado com sucesso pelo menos uma vez.
 
-Current reproduction method remains unknown.
+A captura atualmente não é reproduzível.
 
 ---
 
-## Research Direction
+# Open Challenges
 
-Future investigation should focus on:
+## Challenge 1
 
-1. Reproducing historical capture workflow.
-2. Browser session persistence.
-3. Alternative snapshot providers.
-4. Multi-source architecture.
+Problema:
 
+Capturar MatchDetails automaticamente.
 
-### Momentum
-Fonte: FotMob
-Status: S
+Status:
+
+ABERTO
+
+Tentativas realizadas:
+
+* requests
+* custom headers
+* x-mas
+* Playwright
+* acesso direto ao endpoint
+* janela anônima
+* interceptação de rede
+
+Resultado:
+
+Não resolvido.
+
+---
+
+## Challenge 2
+
+Problema:
+
+Identificar exatamente como o matchdetails.json foi capturado.
+
+Status:
+
+ABERTO
+
+Evidências:
+
+* Arquivo existe.
+* Conteúdo válido.
+* Método não reproduzível atualmente.
+
+---
+
+# Statistical Discoveries
+
+## Momentum
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
 
 Descrição:
-Pressão minuto a minuto.
+
+Pressão ofensiva minuto a minuto.
 
 Faixa observada:
--100 a +100
+
+```text
+-100 até +100
+```
 
 Observações:
-- 94 registros observados em um jogo.
-- Inclui acréscimos (ex.: 45.5, 90.25, 90.5, 90.75).
-- Única série temporal nativa identificada até o momento.
+
+* Aproximadamente 94 registros por partida.
+* Inclui acréscimos.
+* Principal série temporal encontrada até o momento.
 
 ---
 
-### Goal (Shotmap)
-Fonte: FotMob
-Status: S
+## Goal (Shotmap)
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
 
 Descrição:
-Gols são registrados dentro de shotmap.shots através de eventType='Goal'.
 
-Campos validados:
-- min
-- minAdded
-- teamId
-- playerName
-- expectedGoals
+Gols registrados dentro de:
+
+```text
+shotmap.shots
+```
+
+Identificados por:
+
+```text
+eventType = Goal
+```
+
+Campos observados:
+
+* min
+* minAdded
+* teamId
+* playerName
+* expectedGoals
 
 ---
 
-### Touches in Opposition Box
-Fonte: FotMob
-Status: S
+## Touches In Opposition Box
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
 
 Descrição:
+
 Quantidade de toques na área adversária.
 
 Observação:
-Substitui Dangerous Attacks como principal métrica de pressão ofensiva.
+
+Potencial substituto para métricas de ataques perigosos.
 
 ---
 
-### Shots on Target
-Fonte: FotMob
-Status: S
+## Expected Goals (xG)
 
-### Total Shots
-Fonte: FotMob
-Status: S
+Fonte:
 
-### Expected Goals (xG)
-Fonte: FotMob
-Status: S
+FotMob / Understat
 
-### Big Chances
-Fonte: FotMob
-Status: S
+Status:
 
----
-
-### PPDA
-Fonte: Understat
-Status: A
-
-### Deep
-Fonte: Understat
-Status: A
-
-### Big Chances Missed
-Fonte: FotMob
-Status: A
-
-### Corners
-Fonte: FotMob
-Status: A
-
-### xGOT
-Fonte: FotMob
-Status: A
-
-### Shots Inside Box
-Fonte: FotMob
-Status: A
-
----
-
-### Attacking Zones
-Fonte: FotMob
-Status: B
+VALIDADO
 
 Descrição:
-Distribuição espacial dos ataques por lado do campo.
+
+Métrica principal de qualidade de chances.
+
+---
+
+## Expected Goals On Target (xGOT)
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
+
+Descrição:
+
+Avalia qualidade da finalização após o chute.
+
+---
+
+## Total Shots
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
+
+---
+
+## Shots On Target
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
+
+---
+
+## Big Chances
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
+
+---
+
+## PPDA
+
+Fonte:
+
+Understat
+
+Status:
+
+EM ESTUDO
+
+Descrição:
+
+Pressão defensiva por ações permitidas.
+
+---
+
+## Deep
+
+Fonte:
+
+Understat
+
+Status:
+
+EM ESTUDO
+
+Descrição:
+
+Entradas em zonas ofensivas profundas.
+
+---
+
+## Corners
+
+Fonte:
+
+FotMob
+
+Status:
+
+EM ESTUDO
+
+---
+
+## Big Chances Missed
+
+Fonte:
+
+FotMob
+
+Status:
+
+EM ESTUDO
+
+---
+
+## Shots Inside Box
+
+Fonte:
+
+FotMob
+
+Status:
+
+EM ESTUDO
+
+---
+
+## Attacking Zones
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
+
+Descrição:
+
+Distribuição espacial dos ataques.
 
 Observação:
+
 Não é série temporal.
 
 ---
 
-### PlayerStats
-Fonte: FotMob
-Status: B
+## PlayerStats
+
+Fonte:
+
+FotMob
+
+Status:
+
+VALIDADO
 
 Descrição:
-Estatísticas finais e shotmap individual.
+
+Estatísticas finais de jogadores.
 
 Observação:
+
 Não é série temporal.
 
 ---
 
-### Heatmap
-Fonte: FotMob
-Status: PENDENTE
+# Future Research
 
-### Accurate Crosses
-Fonte: FotMob
-Status: PENDENTE
+## Snapshot Providers
 
-### Successful Dribbles
-Fonte: FotMob
-Status: PENDENTE
+Investigar:
 
-### Offsides
-Fonte: FotMob
-Status: PENDENTE
+* SofaScore
+* Flashscore
+* FBref
+* StatsBomb Open Data
+* SoccerNet
+* AiScore
+
+Objetivo:
+
+Reduzir dependência do FotMob.
+
+---
+
+## Multi-Source Architecture
+
+Objetivo:
+
+Combinar múltiplas fontes de dados.
+
+Exemplo:
+
+```text
+Understat
++
+FotMob
++
+Odds
++
+StatsBomb
++
+SofaScore
+```
+
+para construção de modelos quantitativos de gols tardios.
+
+---
+
+# Current Conclusion
+
+Situação Atual:
+
+```text
+Understat .................. OK
+FotMob Match IDs ........... OK
+369 partidas mapeadas ...... OK
+
+MatchDetails ............... BLOQUEADO
+
+Projeto .................... CONTINUAR
+```
+
+A investigação do MatchDetails deve continuar em paralelo, mas não deve bloquear a evolução do projeto.
