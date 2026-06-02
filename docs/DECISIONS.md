@@ -107,5 +107,35 @@ However:
 * database expansion must continue
 * model development must continue
 
+## DECISION: Adopt Multi-Source Data Strategy
+
+Date: 2026-06-02
+
+### Context
+
+The project originally planned to enrich Understat data primarily through FotMob.
+
+Recent restrictions affecting the MatchDetails endpoint increased provider risk.
+
+### Decision
+
+The project will adopt a multi-source architecture.
+
+Candidate providers:
+
+- SofaScore
+- AiScore
+- StatsBomb
+- Flashscore
+- FBref
+
+FotMob remains a supported provider but is no longer considered a mandatory dependency.
+
+### Expected Benefits
+
+- Reduced provider risk
+- Better historical coverage
+- Easier future expansion
+
 MatchDetails is classified as a parallel research topic rather than a blocking dependency.
 
