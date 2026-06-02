@@ -141,3 +141,119 @@ Status: PENDENTE
 ### Offsides
 Fonte: FotMob
 Status: PENDENTE
+
+# FotMob Discovery Notes – June 2026
+
+## Working Endpoint
+
+Confirmed working:
+
+https://www.fotmob.com/api/data/leagues?id=47&season=2024/2025
+
+### Available Data
+
+fixtures.allMatches includes:
+
+* id
+* home team
+* away team
+* match status
+* match date
+* pageUrl
+
+The id field corresponds to FotMob Match ID.
+
+---
+
+## Premier League Validation
+
+League:
+
+Premier League
+
+League ID:
+
+47
+
+Season:
+
+2024/2025
+
+Matches discovered:
+
+380
+
+Matches mapped:
+
+369
+
+Unmapped:
+
+11
+
+---
+
+## MatchDetails Investigation
+
+Endpoint:
+
+https://www.fotmob.com/api/data/matchDetails?matchId=XXXX
+
+### Direct Requests
+
+Result:
+
+403
+
+Response:
+
+TURNSTILE_REQUIRED
+
+---
+
+### Playwright Interception
+
+Status:
+
+Partial Success
+
+Observed:
+
+* request URL detected
+* endpoint confirmed
+* response blocked
+
+---
+
+### Historical Evidence
+
+File:
+
+matchdetails.json
+
+Contains:
+
+* momentum
+* expectedGoals
+* expectedGoalsOnTarget
+* playerStats
+* attackingZones
+* events
+* matchFacts
+
+Conclusion:
+
+MatchDetails payload was successfully captured at least once in the past.
+
+Current reproduction method remains unknown.
+
+---
+
+## Research Direction
+
+Future investigation should focus on:
+
+1. Reproducing historical capture workflow.
+2. Browser session persistence.
+3. Alternative snapshot providers.
+4. Multi-source architecture.
