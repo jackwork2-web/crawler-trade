@@ -1,126 +1,104 @@
 # BACKLOG
 
-## Concluído
-- [x] Criar fotmob_events_import.py
-- [x] Mapear eventos do FotMob
-- [x] Importar eventos Shotmap para events_v2
-- [x] Validar Goal, AttemptSaved e Miss
-- [x] Identificar teamId mandante e visitante
-- [x] Criar snapshot_builder_v1.py
-- [x] Validar Snapshot Builder V1
-- [x] Descobrir estrutura do Momentum
-- [x] Integrar Momentum aos snapshots
-- [x] Criar snapshot_builder_v2.py
-- [x] Persistir snapshots na tabela snapshots
+## STATUS ATUAL
 
-## Em andamento
-- [ ] Criar Match Mapper (Understat ↔ FotMob)
-- [ ] Definir estratégia de captura em lote
+### Concluído
 
-## Próximos marcos
-- [ ] Automatizar descoberta do fotmob_match_id
-- [ ] Batch Capture FotMob
-- [ ] Batch Import de eventos
-- [ ] Batch Snapshot Builder
-- [ ] Importar EPL completa
-- [ ] Construir análises Over 0.5 FT
-- [ ] Avaliar Momentum como variável preditiva
-- [ ] Comparar Touches Box vs Momentum
-
-# HIGH PRIORITY
-
-## Historical Data Expansion
-
-Status: OPEN
-
-Tasks:
-
-* Import EPL 2021/2022
-* Import EPL 2022/2023
-* Import EPL 2023/2024
-* Import EPL 2025/2026
-* Expand to additional leagues
-
-Priority: High
+* [x] Estruturar banco PostgreSQL
+* [x] Importar dados históricos Understat
+* [x] Criar tabela matches
+* [x] Descobrir endpoint FotMob de ligas
+* [x] Mapear Understat → FotMob
+* [x] Adicionar fotmob_match_id
+* [x] Popular 369 partidas EPL 2024/2025
+* [x] Validar correspondência dos Match IDs
+* [x] Investigar endpoint MatchDetails
+* [x] Documentar limitações atuais do FotMob
 
 ---
 
-## Odds Integration
+## Alta Prioridade
 
-Status: OPEN
+### Expansão Histórica
 
-Tasks:
-
-* Evaluate odds sources
-* Create odds ingestion pipeline
-* Link odds to matches table
-
-Priority: High
+* [ ] EPL 2021/2022
+* [ ] EPL 2022/2023
+* [ ] EPL 2023/2024
+* [ ] EPL 2025/2026
 
 ---
 
-# MEDIUM PRIORITY
+### Expansão de Ligas
 
-## Alternative Snapshot Sources
-
-Status: OPEN
-
-Evaluate:
-
-* SofaScore
-* Flashscore
-* FBref
-* StatsBomb Open Data
-* SoccerNet
-* API-Football
-
-Goal:
-
-Replace dependence on a single provider.
+* [ ] La Liga
+* [ ] Bundesliga
+* [ ] Serie A
+* [ ] Ligue 1
+* [ ] Brasileirão
 
 ---
 
-## Snapshot Data Standardization
+### Odds
 
-Status: OPEN
+* [ ] Avaliar fontes históricas
+* [ ] Criar tabela de odds
+* [ ] Vincular odds às partidas
 
-Create a provider-agnostic snapshot schema.
+---
 
-Potential fields:
+## Média Prioridade
 
-* minute
-* score
+### Pesquisa de Snapshots
+
+Avaliar:
+
+* [ ] SofaScore
+* [ ] Flashscore
+* [ ] FBref
+* [ ] StatsBomb Open Data
+* [ ] SoccerNet
+* [ ] AiScore
+
+Objetivo:
+
+Encontrar substitutos para o MatchDetails do FotMob.
+
+---
+
+### Padronização de Snapshot
+
+Criar estrutura única contendo:
+
+* minuto
+* placar
 * momentum
-* attacks
-* dangerous attacks
-* xG progression
+* ataques
+* ataques perigosos
+* xG acumulado
+* estatísticas temporais
 
 ---
 
-# RESEARCH BLOCKED
+## Pesquisa Paralela
 
-## FotMob MatchDetails Automation
+### FotMob MatchDetails
 
-Status: BLOCKED
+Status:
 
-Evidence:
+BLOCKED
 
-* Endpoint discovered
-* Historical payload exists
-* Current requests return TURNSTILE_REQUIRED
+Problema:
 
-Attempts Completed:
+403 TURNSTILE_REQUIRED
 
-* requests
-* custom headers
-* x-mas header
-* Playwright interception
-* browser automation
+Evidências:
 
-Current Recommendation:
+* Endpoint identificado
+* matchdetails.json histórico existe
+* Captura não reproduzível atualmente
 
-Pause active investigation.
+Decisão:
 
-Resume only after core historical database is completed.
+Não bloquear o projeto.
 
-Priority: Deferred
+Continuar investigação em paralelo.
