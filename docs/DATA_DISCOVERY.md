@@ -23,6 +23,11 @@ Pressão minuto a minuto.
 Faixa observada:
 -100 a +100
 
+Observações:
+- 94 registros observados em um jogo.
+- Inclui acréscimos (ex.: 45.5, 90.25, 90.5, 90.75).
+- Única série temporal nativa identificada até o momento.
+
 ---
 
 ### Goal (Shotmap)
@@ -75,19 +80,9 @@ Status: S
 Fonte: Understat
 Status: A
 
-Descrição:
-Indicador de intensidade de pressão.
-
----
-
 ### Deep
 Fonte: Understat
 Status: A
-
-Descrição:
-Entradas em zonas ofensivas profundas.
-
----
 
 ### Big Chances Missed
 Fonte: FotMob
@@ -109,13 +104,29 @@ Status: A
 
 ### Attacking Zones
 Fonte: FotMob
-Status: PENDENTE
+Status: B
 
-### Heatmap
-Fonte: FotMob
-Status: PENDENTE
+Descrição:
+Distribuição espacial dos ataques por lado do campo.
+
+Observação:
+Não é série temporal.
+
+---
 
 ### PlayerStats
+Fonte: FotMob
+Status: B
+
+Descrição:
+Estatísticas finais e shotmap individual.
+
+Observação:
+Não é série temporal.
+
+---
+
+### Heatmap
 Fonte: FotMob
 Status: PENDENTE
 
