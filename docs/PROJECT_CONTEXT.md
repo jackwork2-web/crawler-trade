@@ -1,132 +1,246 @@
-# LateGoalResearch - Project Context
+# PROJECT STATUS UPDATE – JUNE 2026
 
-## Objetivo
-Construir uma base histórica completa de futebol para pesquisa quantitativa.
+## Current Objective
 
-Foco inicial:
-- Over 0.5 FT
-- Gols tardios
-- Pressão ofensiva
+The project aims to build a quantitative research platform focused on identifying patterns associated with late goals in football matches.
 
-## Stack
-- Python 3.12
-- PostgreSQL
-- SQLAlchemy
-- Playwright
-- Understat
-- FotMob
+The long-term objective is to create predictive models capable of identifying situations with increased probability of goals during the final stages of a match.
 
-## Estado Atual
+---
 
-### Banco
-Database: late_goal_research
+## Current Data Architecture
 
-Tabelas existentes:
-- matches
-- team_match_stats
-- snapshots
-- events
-- results
+### Primary Historical Source
 
-### Understat
-Concluído.
+Understat
 
-Dados EPL 2024/2025 importados.
+Available:
 
-- 380 partidas
-- 760 registros team_match_stats
+* historical matches
+* xG
+* xGA
+* results
+* team statistics
+* player statistics
 
-Campos validados:
-- xG
-- xGA
-- npxG
-- npxGA
-- PPDA
-- PPDA Allowed
-- Deep
-- Deep Allowed
-- xPts
-- npxGD
+---
 
-### FotMob
-Concluído acesso via Playwright.
+### Database
 
-Endpoint validado:
-matchDetails
+PostgreSQL
 
-Estrutura validada:
-- shotmap
-- stats
-- momentum
-- matchFacts.events
-- playerStats
-- lineup
-- attackingZones
+Main table:
 
-## Descobertas
+```text
+matches
+```
 
-### Momentum
-Disponível minuto a minuto.
+Relevant fields:
 
-Faixa observada:
--100 a +100
+```text
+understat_match_id
+league
+season
+match_date
+home_team
+away_team
+home_goals
+away_goals
+home_xg
+away_xg
+fotmob_match_id
+```
 
-Interpretação:
--100 = pressão visitante
-0 = equilíbrio
-+100 = pressão mandante
+---
 
-### Shotmap
-Disponível para cada finalização.
+## FotMob Integration
 
-Campos relevantes:
-- minute
-- xG
-- expectedGoalsOnTarget
-- isOnTarget
-- teamId
-- situation
-- shotType
+### Objective
 
-### Events
-Tipos observados:
-- Comment
-- Substitution
-- Card
-- AddedTime
-- Half
-- Red
-- Yellow
+Enrich Understat matches with:
 
-## Decisões Arquiteturais
+* snapshots
+* momentum
+* events
+* player statistics
+* attacking metrics
 
-1. Salvar snapshots minuto a minuto.
-2. Incluir acréscimos.
-3. Não reduzir volume de dados nesta fase.
-4. Priorizar coleta completa antes de modelagem.
+---
 
-## Próximos Marcos
+### Major Achievement
 
-MARCO 4
-- fotmob_events_import.py
+The project successfully solved:
 
-MARCO 5
-- snapshot_builder.py
+```text
+Understat Match
+↓
+FotMob Match ID
+```
 
-MARCO 6
-- importação histórica FotMob
+using:
 
-MARCO 7
-- análises quantitativas
+```text
+https://www.fotmob.com/api/data/leagues?id=47&season=2024/2025
+```
 
-MARCO 8
-- modelos preditivos
+Result:
 
-## Regras para Agentes
+```text
+369 matches mapped successfully.
+```
 
-Antes de iniciar qualquer tarefa:
-1. Ler este arquivo.
-2. Consultar BACKLOG.md.
-3. Preservar decisões registradas em DECISIONS.md.
-4. Não remover dados sem aprovação humana.
-5. Priorizar coleta e qualidade da base histórica.
+This problem is considered solved.
+
+---
+
+## MatchDetails Investigation
+
+### Endpoint
+
+```text
+https://www.fotmob.com/api/data/matchDetails
+```
+
+### Intended Data
+
+* momentum
+* events
+* attacking zones
+* playerStats
+* shotmap
+* expectedGoals
+* matchFacts
+
+---
+
+### Current Status
+
+Blocked.
+
+Current response:
+
+```text
+403
+TURNSTILE_REQUIRED
+```
+
+Attempts performed:
+
+* requests
+* custom headers
+* x-mas header
+* Playwright
+* network interception
+* browser automation
+
+No reproducible solution currently exists.
+
+---
+
+### Important Evidence
+
+A historical file:
+
+```text
+matchdetails.json
+```
+
+exists and contains valid MatchDetails payload.
+
+This proves that payload capture was successful at least once.
+
+The reproduction method remains unknown.
+
+---
+
+## Project Decision
+
+The project must not depend exclusively on FotMob.
+
+MatchDetails investigation remains active but is no longer considered a blocking dependency.
+
+Development must continue using currently available data.
+
+---
+
+## New Research Direction
+
+The project is moving toward a multi-source architecture.
+
+Potential sources:
+
+* Understat
+* SofaScore
+* Flashscore
+* FBref
+* StatsBomb Open Data
+* SoccerNet
+* AiScore
+* Odds providers
+
+Objective:
+
+Reduce dependency on any single provider.
+
+---
+
+## Current Priorities
+
+### Priority 1
+
+Expand historical database:
+
+* EPL 2021/2022
+* EPL 2022/2023
+* EPL 2023/2024
+* EPL 2025/2026
+
+---
+
+### Priority 2
+
+Expand coverage:
+
+* La Liga
+* Bundesliga
+* Serie A
+* Ligue 1
+* Brasileirão
+
+---
+
+### Priority 3
+
+Research alternative snapshot providers.
+
+Primary candidates:
+
+1. SofaScore
+2. StatsBomb Open Data
+3. Flashscore
+
+---
+
+### Priority 4
+
+Build first quantitative late-goal model using currently available data.
+
+The model should not wait for MatchDetails resolution.
+
+---
+
+## Current Assessment
+
+Project Status:
+
+```text
+Database Infrastructure ..... COMPLETE
+Understat Integration ....... COMPLETE
+FotMob Match Mapping ........ COMPLETE
+FotMob MatchDetails ......... BLOCKED
+Historical Expansion ........ IN PROGRESS
+Alternative Sources ......... RESEARCH PHASE
+Model Development ........... NEXT MAJOR STEP
+```
+
+The project should continue progressing while MatchDetails research remains a parallel investigation.
