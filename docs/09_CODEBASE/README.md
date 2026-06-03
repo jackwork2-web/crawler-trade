@@ -2,15 +2,35 @@
 
 Esta pasta contém a documentação técnica dos scripts do projeto LateGoalResearch.
 
-Objetivos:
+## Objetivos
+
 - Catalogar todos os scripts do projeto.
 - Registrar responsabilidades, entradas e saídas.
 - Facilitar manutenção futura por humanos e agentes de IA.
-- Servir como referência para futuras integrações com Codex e outros agentes.
+- Servir como referência para futuras integrações com agentes e automações.
 
-Estrutura:
+## Estrutura Atual
+
 - FILE_INDEX.md -> índice geral dos arquivos.
-- collectors/ -> documentação dos coletores.
-- transforms/ -> documentação das transformações.
-- database/ -> documentação dos carregamentos e integrações com banco.
-- analytics/ -> documentação das rotinas analíticas.
+- FILE_CATALOG.md -> catálogo dos componentes documentados.
+- collectors/ -> coletores Understat, SofaScore e futuros importadores.
+- config/ -> configuração compartilhada do projeto.
+- analytics/ -> rotinas analíticas e geração de datasets.
+
+## Componentes Principais
+
+### Collectors
+
+- sofascore_client
+- sofascore_collector
+- sofascore_season_collector
+- sofascore_match_collector
+- sofascore_importer (planejado)
+
+### Config
+
+- database.py
+
+## Status
+
+Documentação ativa e em expansão conforme novos componentes são adicionados ao projeto.
