@@ -13,6 +13,18 @@ Armazenar a timeline dos eventos da partida.
 
 match_id -> matches_master.match_id
 
+## Campos Confirmados
+
+- id
+- sofascore_event_id
+- minute
+- incident_type
+- is_home
+- player_name
+- home_score
+- away_score
+- match_id
+
 ## Eventos Esperados
 
 - Goals
