@@ -186,14 +186,20 @@ O momentum acumulado nos minutos anteriores ao evento possui capacidade preditiv
 ## Fonte
 
 - SofaScore
+match_graph (coleta pendente)
 
 ## Status
 
 Alta prioridade.
+Parcialmente validável
 
 ## Justificativa
 
 Esta hipótese só se tornou possível após a descoberta dos dados de Graph do SofaScore.
+
+## OBSERVAÇÃO
+
+A arquitetura já suporta armazenamento temporal para validação futura.
 
 ---
 
@@ -212,6 +218,14 @@ Eventos recentes modificam a probabilidade futura de ocorrência de um gol tardi
 - pênalti perdido
 - pênalti convertido
 
+## Eventos disponíveis
+
+- Goal
+- Card
+- Substitution
+- Penalty
+- VAR
+
 ## Fonte
 
 - match_incidents
@@ -220,6 +234,7 @@ Eventos recentes modificam a probabilidade futura de ocorrência de um gol tardi
 ## Status
 
 Alta prioridade.
+Parcialmente validável
 
 ## Justificativa
 
