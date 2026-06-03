@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Late Goal Research é um projeto de pesquisa quantitativa para identificar padrões associados a gols tardios no futebol.
+Late Goal Research é um projeto de pesquisa quantitativa para identificar padrões associados a gols tardios no futebol através da integração de múltiplas fontes de dados.
 
 ## Fontes Principais
 
@@ -17,9 +17,10 @@ Late Goal Research é um projeto de pesquisa quantitativa para identificar padr�
 ## Ordem de Leitura para Novos Agentes
 
 1. docs/00_AGENTS/AGENT_MASTER.md
-2. docs/01_CONTEXT/PROJECT_STATUS.md
-3. docs/06_SPRINTS/CURRENT_SPRINT.md
-4. Documentação da fonte relacionada
+2. docs/01_CONTEXT/PROJECT_STATE_2026-06.md
+3. docs/01_CONTEXT/PROJECT_STATUS.md
+4. docs/06_SPRINTS/CURRENT_SPRINT.md
+5. Documentação específica da área de atuação
 
 ## Regras
 
@@ -27,9 +28,31 @@ Late Goal Research é um projeto de pesquisa quantitativa para identificar padr�
 - Registrar novas descobertas.
 - Priorizar evolução do dataset.
 - Evitar dependência de uma única fonte.
+- Consultar a documentação antes de propor mudanças estruturais.
 
-## Status Atual
+## Estado Atual do Projeto
 
-Etapa 2 concluída.
-Etapa 3 em andamento.
-Foco atual: coleta massiva do SofaScore.
+Concluído:
+
+- PostgreSQL operacional.
+- Understat operacional.
+- SofaScore Season Collector implementado.
+- SofaScore Match Collector implementado.
+- 50 partidas da EPL coletadas.
+- Documentação consolidada.
+
+Em andamento:
+
+- Investigação do HTTP 403 do SofaScore.
+- Finalização da coleta histórica da EPL.
+
+Próximos marcos:
+
+- Implementar sofascore_importer.py.
+- Popular PostgreSQL.
+- Construir features H1-H9.
+- Iniciar pesquisa quantitativa avançada.
+
+## Objetivo Imediato
+
+Concluir a transição da fase de coleta para a fase de engenharia de dados.
