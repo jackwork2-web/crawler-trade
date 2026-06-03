@@ -18,6 +18,17 @@ match_id -> matches_master.match_id
 - minute
 - value
 
+## Status
+
+Coleta ainda não implementada.
+
+Observação:
+
+A tabela foi criada antecipadamente para suportar:
+
+- H8 Momentum e Pressão Temporal
+- H5 Pressão Ofensiva In-Game
+
 ## Utilização
 
 Modelagem temporal.
