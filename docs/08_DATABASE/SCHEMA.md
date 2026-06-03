@@ -1,5 +1,25 @@
 # DATABASE SCHEMA
 
+## Estado Atual
+
+### Implementado
+
+- matches_master
+- match_statistics
+- match_incidents
+- match_graph
+
+### Em Desenvolvimento
+
+- sofascore_importer.py
+
+### Planejado
+
+- analytics_dataset_builder.py
+- feature_builder.py
+
+---
+
 ## Core Tables
 
 ### matches
