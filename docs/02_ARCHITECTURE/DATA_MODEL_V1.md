@@ -2,30 +2,58 @@
 
 ## Objetivo
 
-Unificar Understat e SofaScore em um dataset único.
+Consolidar todas as fontes de dados utilizadas pelo projeto Late Goal Research.
 
-## Entidades Principais
+## Understat
 
-### matches_master
+### matches
 
-Uma linha por partida.
+Partidas históricas.
 
-### match_statistics
+### team_match_stats
 
-Estatísticas finais da partida.
+Estatísticas avançadas por equipe e partida.
 
-### match_incidents
+## FotMob
 
-Eventos minuto a minuto.
+### fotmob_raw_matches
 
-### match_graph
+Camada RAW.
 
-Momentum minuto a minuto.
+### events_v2
+
+Eventos detalhados da partida.
+
+### snapshots
+
+Estados acumulados minuto a minuto.
+
+### results
+
+Targets para treinamento dos modelos.
+
+## SofaScore
 
 ### match_mapping
 
 Relacionamento entre IDs das fontes.
 
+### matches_master
+
+Tabela mestre de identificação das partidas.
+
+### match_statistics
+
+Estatísticas agregadas da partida.
+
+### match_incidents
+
+Eventos e incidentes da partida.
+
+### match_graph
+
+Momentum minuto a minuto.
+
 ## Status
 
-Em definição.
+Estrutura principal definida e em evolução contínua.
