@@ -19,50 +19,76 @@
 
 ## Concluído
 
-- Estrutura documental do projeto criada.
+- Estrutura documental do projeto consolidada.
 - Understat integrado.
-- FotMob integrado.
-- EPL 2024/2025 importada.
+- FotMob integrado parcialmente.
+- EPL 2024/2025 descoberta via SofaScore (381 partidas).
 - Match Mapping criado.
 - SofaScore validado como fonte operacional.
-- Inventário EPL 2024/2025 gerado (381 partidas).
-- Banco de dados modelado.
+- inventory.json gerado.
+- rounds.json gerado.
+- 50 partidas coletadas com sucesso.
+- PostgreSQL configurado.
+- SQLAlchemy configurado.
 - Tabelas match_mapping, matches_master, match_statistics, match_incidents e match_graph criadas.
-- Documentação técnica inicial criada.
+- Documentação técnica ampliada e auditada.
 
 ---
 
 ## Em Andamento
 
-### SofaScore Match Collector
+### Coleta SofaScore
 
 Objetivo:
 
-Consumir inventory.json e popular automaticamente:
+Finalizar a coleta histórica da Premier League.
+
+Status:
+
+- 50 partidas coletadas.
+- HTTP 403 identificado após alto volume de requisições.
+- Investigação em andamento.
+
+---
+
+### Importação PostgreSQL
+
+Objetivo:
+
+Implementar sofascore_importer.py para popular:
 
 - matches_master
 - match_statistics
 - match_incidents
 - match_graph
 
+Status:
+
+Planejado.
+
 ---
 
 ## Próximas Etapas
 
-1. Popular banco com dados SofaScore.
-2. Consolidar integração multi-fonte.
-3. Construir catálogo de features.
-4. Gerar dataset analítico.
-5. Pesquisa quantitativa.
-6. Modelagem preditiva.
-7. Backtesting.
-8. Produção.
+1. Resolver HTTP 403.
+2. Finalizar EPL completa.
+3. Implementar sofascore_importer.py.
+4. Popular PostgreSQL.
+5. Consolidar integração multi-fonte.
+6. Construir catálogo de features.
+7. Gerar dataset analítico.
+8. Pesquisa quantitativa.
+9. Modelagem preditiva.
+10. Backtesting.
+11. Produção.
 
 ---
 
 ## Descobertas Recentes
 
 - Mapeamento Understat → FotMob concluído.
-- SofaScore fornece incidents e graph.
-- Momentum minuto a minuto disponível via graph.
+- SofaScore fornece incidents.
+- Estrutura para momentum (match_graph) preparada.
 - Arquitetura multi-fonte consolidada.
+- Coleta histórica SofaScore validada.
+- Projeto entrando na fase de engenharia de dados.
