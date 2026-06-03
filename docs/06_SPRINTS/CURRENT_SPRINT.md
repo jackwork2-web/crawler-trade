@@ -4,22 +4,49 @@
 
 Objetivo:
 
-Construir a base de coleta massiva do SofaScore.
+Construir a base histórica SofaScore e preparar a importação para PostgreSQL.
 
-## Entregáveis
+---
 
-- [ ] Criar sofascore_match_collector.py
-- [ ] Coletar EPL 2024/25 completa
-- [ ] Coletar event.json
-- [ ] Coletar statistics.json
-- [ ] Coletar incidents.json
-- [ ] Coletar graph.json
-- [ ] Coletar lineups.json
-- [ ] Coletar h2h.json
+## Concluído
+
+- [x] Criar sofascore_season_collector.py
+- [x] Criar sofascore_match_collector.py
+- [x] Descobrir temporada EPL
+- [x] Gerar inventory.json
+- [x] Gerar rounds.json
+- [x] Coletar event.json
+- [x] Coletar statistics.json
+- [x] Coletar incidents.json
+- [x] Coletar lineups.json
+- [x] Coletar h2h.json
+- [x] Coletar 50 partidas da EPL
+
+---
+
+## Em Andamento
+
+- [ ] Resolver HTTP 403 do SofaScore
+- [ ] Finalizar coleta completa da EPL
+
+---
+
+## Próximos Passos
+
+- [ ] Implementar sofascore_importer.py
+- [ ] Popular PostgreSQL
+- [ ] Validar match_statistics
+- [ ] Validar match_incidents
+- [ ] Implementar coleta de graph
+- [ ] Iniciar Feature Engineering
+
+---
 
 ## Resultado Esperado
 
-380 partidas finalizadas da Premier League 2024/25 disponíveis localmente para integração com Understat.
+Base histórica consistente da Premier League disponível para integração multi-fonte e validação das hipóteses H1-H9.
+
+---
 
 ## Status
 
