@@ -1,3 +1,0 @@
--- LateGoalResearch Database Schema
--- Fonte oficial da estrutura do banco
--- Atualizar conforme evolução do projeto
